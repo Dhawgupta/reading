@@ -1,0 +1,24 @@
+\documentclass{article}
+
+\begin{document}
+Link: https://arxiv.org/pdf/1910.01526.pdf
+
+Title : Gated Linear Networks
+
+\begin{itemize}
+\item excellent online learning.
+\item local credit assignment, resilient to catistrophic forgetting. 
+\end{itemize}
+This paper proposes a local learning architecture and methodology for binary prediction tasks on Networks. 
+
+\textbf{Structure: }They have a structure of neurons, where each neuron is a expert / binary classifier which outputs the probability of the target being a 0 or 1. The network is structured in layers, where each layer has some neurons. The base layers take in input of lets say the image and each neuron produces a base estimate of the probability for binary classification. Now the neuron in the next layers takes the input of these probability from there experts and based on a context function (which essentially take the input of the image and selects a set of weights from a table), weight the different probabilities from different agents in the last layer to produces a probability again for the classification in next layer. The output of this neuron and the other neurons in the same layer becomes the input of the probabilities of the neurons in the next layer. which again repeats this process of mixture of experts based on the context and set of weights. Over here the context function is based upon partitioning the input space appropriately and the corresponding weight function is trained for each of the nodes, and is shown to be a convex optimization process. 
+
+\textbf{Locality in learning }: The main thing that they have to learn is to optimize the weight vector that is selected by the context function for a node, which does a mixture of experts based on the output from nodes in last layer. They present a objective function for each node, which takes in the input of the global target and show that , that is convex. They also treat the output of each node as a prediction for the actual target, i.e. they don't act as representation for other nodes in essence. Hence they can broadcast the target to all nodes and update them simultaneously, they just need to do a forward inference which depends on the downstream nodes to produce the actual output. 
+
+Doubts / limitation: 
+\begin{itemize}
+    \item I am not sure why cascading these mixture of experts is a good idea, does it offer any extra help, then lets say just having a mixture of experts with this context function. 
+    \item This seems to be restrictied only to the binary classification case, can be used for multi with multi class nodes. 
+\end{itemize}
+
+\end{document}
